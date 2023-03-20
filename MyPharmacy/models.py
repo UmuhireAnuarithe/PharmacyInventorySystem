@@ -12,7 +12,7 @@ class Pharmacist(models.Model):
         ('GENDER_FEMALE', 'Female'),
     ]
     first_name =models.CharField(max_length=255)
-    last_name = models.CharField(max_length=255)
+    last_name  = models.CharField(max_length=255)
     employ_id = models.CharField(max_length=255)
     Phone_number = PhoneNumberField()
     gender = models.CharField(max_length=255, choices=GENDER_CHOICES)
@@ -46,8 +46,8 @@ class Supplier(models.Model):
     
     
 class Medicaltype(models.Model):
-    
     Type_name = models.CharField(max_length=50)
+    
     Created_by = models.ForeignKey(Pharmacist,on_delete=models.CASCADE)
     Created_date = models.DateTimeField(auto_now_add=True)
     
@@ -63,10 +63,10 @@ class Medecine_Category(models.Model):
     
     
     def __str__(self) :
-        return self.Type_name
+        return self.category_name
     
 class Medecine(models.Model):
-    batch_no = models.IntegerField()
+    batch_no = models.CharField(max_length=30)
     medecine_name = models.CharField(max_length=255)
     specification = models.TextField(max_length=255)
     category_id = models.ForeignKey(Medecine_Category, on_delete=models.CASCADE)
@@ -87,7 +87,7 @@ class Medecine_Oder(models.Model):
     STATUS_CHOICES =[
         
         ('SELECT_STATUS', ''),
-        ('ORDER_STATUS', "Pending"),
+        ('ORDER_STATUS', 'Pending'),
         ('ORDER_STATUS', 'Recieved'),
         
     ]
@@ -96,7 +96,7 @@ class Medecine_Oder(models.Model):
     suplier_id = models.ForeignKey(Supplier,on_delete=models.CASCADE)
     medecine_id = models.ForeignKey(Medecine,on_delete=models.CASCADE)
     amount = models.IntegerField()
-    status = models.CharField(max_length=20,choices=STATUS_CHOICES,default='Pending')
+    status = models.CharField(max_length=20,choices=STATUS_CHOICES)
     ordered_date = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(Pharmacist,on_delete=models.CASCADE)
      
@@ -113,7 +113,7 @@ class Medecine_recieved(models.Model):
     created_by = models.ForeignKey(Pharmacist,on_delete=models.CASCADE)
      
     def __str__(self):
-        return '{} {}'.format(self.medecine_id, self.status)
+        return '{} {}'.format(self.medecine_id, self.created_by)
     
     
 class Medecine_Out(models.Model):

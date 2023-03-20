@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'MyPharmacy.apps.MypharmacyConfig',
     "phonenumber_field",
-    "authentication"
+    "authentication",
+    "rest_framework"
 ]
 
 MIDDLEWARE = [
